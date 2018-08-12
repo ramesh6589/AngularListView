@@ -1,0 +1,36 @@
+<div class="home-frame">
+    <div class="search-box">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <h2>Search: {{query}}</h2>
+                <form class="form">
+                    <input class="form-control" type="text" ng-model="query" tabindex="0">
+
+                </form>
+            </div>
+            <pre>Sort by = {{sortParam}};</pre>
+            <div class="col-lg-4">
+                <h2>Sort:</h2>
+                <button class="sort btn" data-sort="name" tabindex="1" ng-click="sortBy('first_name')">
+                    Sort by name
+                </button>
+                <button class="sort btn" data-sort="title" tabindex="2" ng-click="sortBy('last_name')">
+                    Sort by title
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container" scroll>
+        <ul class="tutorials" dnd-list="home.tutorials">
+            <li data-ng-repeat="tutorial in home.tutorials track by $index |  orderBy : sortParam | filter: query " dnd-draggable="tutorial"
+                dnd-type="'tutorial'" dnd-allowed-types="['tutorial']" dnd-external-sources="true" dnd-effect-allowed="copyMove"
+                dnd-moved="home.tutorials.splice($index, 1)" dnd-callback="tutorial.length" dnd-dragover="dragoverCallback(index, external, type, callback)"
+                dnd-drop="dropCallback($index, tutorial, external, type)" tabindex="{{$index +1}}">
+                <h3>{{tutorial.first_name}}</h3>
+                <p>{{tutorial.last_name}}</p>
+                <div class="clearfix"></div>
+            </li>
+        </ul>
+    </div>
+</div>
